@@ -256,7 +256,7 @@ namespace std {
 }
 
 // TODO: apply to proxy pattern
-// TODO: apply to SIMD
+// TODO: apply to SIMD(google::highway)
 template <class T, std::size_t N>
 static constexpr elements::basics::Vec<T, N> operator+(const elements::basics::Vec<T, N>& lhs, const elements::basics::Vec<T, N>& rhs)
 {
