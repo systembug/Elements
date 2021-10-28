@@ -105,7 +105,8 @@ namespace elements::basics {
 
         private:
         #if (HWY_NAMESPACE != HWY_SCALAR)
-            HWY_ALIGN StaticArr<T, N> m_mem;
+            // HWY_ALIGN StaticArr<T, N> m_mem;
+            StaticArr<T, N> m_mem;
         #else
             StaticArr<T, N> m_mem;
         #endif

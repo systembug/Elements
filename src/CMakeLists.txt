@@ -7,7 +7,7 @@ set(SIMD_FLAGS "-mavx2")
 include_directories(${PROJECT_SOURCE_DIR})
 
 # set(Highway ${PROJECT_SOURCE_DIR}/../3rdparty/hwy/libs/libhwy.a)
-set(SRC_FILES basics/Vec.hpp basics/StaticMem.hpp basics/DynamicMem.hpp basics/DynamicMemAlloc.hpp basics/VecImpl.hpp)
+set(SRC_FILES basics/Vec.hpp basics/StaticMem.hpp basics/DynamicMem.hpp basics/DynamicMemAlloc.hpp)
 
 add_library(Elements_lib SHARED ${SRC_FILES})
 set_target_properties(Elements_lib PROPERTIES LINKER_LANGUAGE CXX)
