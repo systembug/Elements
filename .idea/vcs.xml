@@ -3,5 +3,10 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/3rdparty/googletest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/highway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/highway/build/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug-clang10/3rdparty/highway/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug-gcc10/3rdparty/highway/googletest-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-release-clang10/3rdparty/highway/googletest-src" vcs="Git" />
   </component>
 </project>
