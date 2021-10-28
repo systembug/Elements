@@ -2,8 +2,12 @@
 // Created by systembug on 21. 9. 19..
 //
 
-#ifndef ELEMENTS_VEC_HPP
-#define ELEMENTS_VEC_HPP
+#undef HWY_TARGET_INCLUDE
+#define HWY_TARGET_INCLUDE "hwy/examples/benchmark.cc"
+#include "hwy/foreach_target.h"
+
+#ifndef ELEMENTS_VEC_HPP_#HWT_TARGET
+#define ELEMENTS_VEC_HPP_#HWT_TARGET
 
 #include "StaticMem.hpp"
 #include "DynamicMem.hpp"
@@ -417,10 +421,149 @@ static constexpr Vec<T, N> operator-(const Vec<T>& lhs, const Vec<T, N>& rhs)
     return result;
 }
 
+// TODO: apply to proxy pattern
+template <class T, std::size_t N>
+static constexpr Vec<T, N> operator*(const Vec<T, N>& lhs, const Vec<T, N>& rhs)
+{
+    Vec<T, N> result;
+#if (HWY_NAMESPACE != HWY_SCALAR)
+    const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+    // std::cout << hwy::HWY_NAMESPACE::Lanes(data) << '\n';
+    for (auto i = 0; i < N; i += hwy::HWY_NAMESPACE::Lanes(data)) {
+        const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+        const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
+    }
+#else
+    for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] * rhs[i];
+#endif
+    return result;
+}
+
+// TODO: apply to proxy pattern
+template <class T>
+static constexpr Vec<T> operator*(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+    Vec<T> result(lhs.size(), 0);
+#if (HWY_NAMESPACE != HWY_SCALAR)
+    const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+    // std::cout << hwy::HWY_NAMESPACE::Lanes(data) << '\n';
+    for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
+        const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+        const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
+    }
+#else
+    for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] * rhs[i];
+#endif
+    return result;
+}
+
+// TODO: apply to proxy pattern
+template <class T, std::size_t N>
+static constexpr Vec<T, N> operator*(const Vec<T, N>& lhs, const Vec<T>& rhs)
+{
+    Vec<T, N> result;
+    std::fill(std::begin(result), std::end(result), 0);
+#if (HWY_NAMESPACE != HWY_SCALAR)
+    const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+    // std::cout << hwy::HWY_NAMESPACE::Lanes(data) << '\n';
+    for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
+        const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+        const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
+    }
+#else
+    for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] * rhs[i];
+#endif
+    return result;
+}
+
+// TODO: apply to proxy pattern
+template <class T, std::size_t N>
+static constexpr Vec<T, N> operator/(const Vec<T, N>& lhs, const Vec<T, N>& rhs)
+{
+     Vec<T, N> result;
+#if (HWY_NAMESPACE != HWY_SCALAR)
+     const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+     for (auto i = 0; i < N; i += hwy::HWY_NAMESPACE::Lanes(data)) {
+         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+         hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+    }
+#else
+     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
+#endif
+     return result;
+}
+
+// TODO: apply to proxy pattern
+template <class T>
+static constexpr Vec<T> operator/(const Vec<T>& lhs, const Vec<T>& rhs)
+{
+    Vec<T> result(lhs.size(), 0);
+#if (HWY_NAMESPACE != HWY_SCALAR)
+    const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+    for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
+        const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+        const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+    }
+#else
+    for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
+#endif
+    return result;
+}
+
+// TODO: apply to proxy pattern
+template <class T, std::size_t N>
+static constexpr Vec<T, N> operator/(const Vec<T, N>& lhs, const Vec<T>& rhs)
+{
+    Vec<T, N> result;
+    std::fill(std::begin(result), std::end(result), 0);
+#if (HWY_NAMESPACE != HWY_SCALAR)
+    const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+    for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
+        const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+        const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+    }
+#else
+    for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
+#endif
+    return result;
+}
+
+// TODO: apply to proxy pattern
+template <class T, std::size_t N>
+static constexpr Vec<T, N> operator/(const Vec<T>& lhs, const Vec<T, N>& rhs)
+{
+    Vec<T, N> result;
+    std::fill(std::begin(result), std::end(result), 0);
+#if (HWY_NAMESPACE != HWY_SCALAR)
+    const hwy::HWY_NAMESPACE::ScalableTag<T> data;
+    for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
+        const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
+        const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
+        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+    }
+#else
+    for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
+#endif
+    return result;
+}
+
+
 template <class T, std::size_t N>
 static constexpr Vec<T, N> operator+(const Vec<T>& lhs, const Vec<T, N>& rhs)
 {
     return operator+(rhs, lhs);
+}
+
+template <class T, std::size_t N>
+static constexpr Vec<T, N> operator*(const Vec<T>& lhs, const Vec<T, N>& rhs)
+{
+    return operator*(rhs, lhs);
 }
 
 // NOLINTNEXTLINE(google-readability-namespace-comments)

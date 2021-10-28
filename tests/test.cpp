@@ -5,6 +5,7 @@
 #include "gtest/gtest.h"
 #include "../src/basics/Vec.hpp"
 #include <chrono>
+#include <execution>
 
 HWY_BEFORE_NAMESPACE();
 namespace elements::basics {
@@ -196,6 +197,92 @@ namespace HWY_NAMESPACE {
 
         // auto prev = std::chrono::steady_clock::now();
         auto sum = vec1 - vec2;
+        // auto duration = std::chrono::steady_clock::now() - prev;
+        // std::cout << duration.count() << '\n';
+        EXPECT_EQ(sum == vec3, true);
+    }
+
+    TEST(Vec, static_multiply_test) {
+        Vec<uint16_t, 503> vec1;
+        Vec<uint16_t, 503> vec2;
+        Vec<uint16_t, 503> vec3;
+
+        std::fill(std::begin(vec1), std::end(vec1), 25);
+        std::fill(std::begin(vec2), std::end(vec2), 4);
+        std::fill(std::begin(vec3), std::end(vec3), 100);
+
+        // auto prev = std::chrono::steady_clock::now();
+        auto sum = vec1 * vec2;
+        // auto duration = std::chrono::steady_clock::now() - prev;
+        // std::cout << duration.count() << '\n';
+        EXPECT_EQ(sum == vec3, true);
+    }
+
+    TEST(Vec, dynamic_multiply_test) {
+        Vec<float> vec1(7, 10);
+        Vec<float> vec2(7, 0.2);
+        Vec<float> vec3(7, 2);
+
+        // auto prev = std::chrono::steady_clock::now();
+        auto sum = vec1 * vec2;
+        // auto duration = std::chrono::steady_clock::now() - prev;
+        // std::cout << duration.count() << '\n';
+        EXPECT_EQ(sum == vec3, true);
+    }
+
+    TEST(Vec, fusion_multiply_test) {
+        Vec<double> vec1(2, 0.5);
+        Vec<double, 2> vec2;
+        Vec<double, 2> vec3;
+
+        std::fill(std::begin(vec2), std::end(vec2), 0.2);
+        std::fill(std::begin(vec3), std::end(vec3), 0.1);
+
+        // auto prev = std::chrono::steady_clock::now();
+        auto sum = vec1 * vec2;
+        // auto duration = std::chrono::steady_clock::now() - prev;
+        // std::cout << duration.count() << '\n';
+        EXPECT_EQ(sum == vec3, true);
+    }
+
+    TEST(Vec, static_division_test) {
+        Vec<float, 164> vec1;
+        Vec<float, 164> vec2;
+        Vec<float, 164> vec3;
+
+        std::fill(std::begin(vec1), std::end(vec1), 25);
+        std::fill(std::begin(vec2), std::end(vec2), 5);
+        std::fill(std::begin(vec3), std::end(vec3), 5);
+
+        // auto prev = std::chrono::steady_clock::now();
+        auto sum = vec1 / vec2;
+        // auto duration = std::chrono::steady_clock::now() - prev;
+        // std::cout << duration.count() << '\n';
+        EXPECT_EQ(sum == vec3, true);
+    }
+
+    TEST(Vec, dynamic_division_test) {
+        Vec<float> vec1(5, 10000);
+        Vec<float> vec2(5, 100);
+        Vec<float> vec3(5, 100);
+
+        // auto prev = std::chrono::steady_clock::now();
+        auto sum = vec1 / vec2;
+        // auto duration = std::chrono::steady_clock::now() - prev;
+        // std::cout << duration.count() << '\n';
+        EXPECT_EQ(sum == vec3, true);
+    }
+
+    TEST(Vec, fusion_division_test) {
+        Vec<double> vec1(2, 0.5);
+        Vec<double, 2> vec2;
+        Vec<double, 2> vec3;
+
+        std::fill(std::begin(vec2), std::end(vec2), 0.1);
+        std::fill(std::begin(vec3), std::end(vec3), 5);
+
+        // auto prev = std::chrono::steady_clock::now();
+        auto sum = vec1 / vec2;
         // auto duration = std::chrono::steady_clock::now() - prev;
         // std::cout << duration.count() << '\n';
         EXPECT_EQ(sum == vec3, true);
