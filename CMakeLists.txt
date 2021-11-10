@@ -14,5 +14,6 @@ add_subdirectory(3rdparty/highway)
 add_subdirectory(src)
 
 # Test
-add_subdirectory(tests)
 add_subdirectory(3rdparty/googletest)
+add_subdirectory(tests)
+# add_subdirectory(3rdparty/googletest)

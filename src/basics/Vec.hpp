@@ -2,12 +2,12 @@
 // Created by systembug on 21. 9. 19..
 //
 
-#undef HWY_TARGET_INCLUDE
-#define HWY_TARGET_INCLUDE "hwy/examples/benchmark.cc"
-#include "hwy/foreach_target.h"
+// #undef HWY_TARGET_INCLUDE
+// #define HWY_TARGET_INCLUDE "hwy/examples/benchmark.cc"
+// #include "hwy/foreach_target.h"
 
-#ifndef ELEMENTS_VEC_HPP_#HWT_TARGET
-#define ELEMENTS_VEC_HPP_#HWT_TARGET
+#ifndef ELEMENTS_VEC_HPP
+#define ELEMENTS_VEC_HPP
 
 #include "StaticMem.hpp"
 #include "DynamicMem.hpp"
@@ -319,7 +319,7 @@ static constexpr Vec<T> operator+(const Vec<T>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Add(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Add(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] + rhs[i];
@@ -339,7 +339,7 @@ static constexpr Vec<T, N> operator+(const Vec<T, N>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Add(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Add(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] + rhs[i];
@@ -375,7 +375,7 @@ static constexpr Vec<T> operator-(const Vec<T>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Sub(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Sub(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] - rhs[i];
@@ -413,7 +413,7 @@ static constexpr Vec<T, N> operator-(const Vec<T>& lhs, const Vec<T, N>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Sub(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Sub(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] - rhs[i];
@@ -451,7 +451,7 @@ static constexpr Vec<T> operator*(const Vec<T>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] * rhs[i];
@@ -471,7 +471,7 @@ static constexpr Vec<T, N> operator*(const Vec<T, N>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Mul(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] * rhs[i];
@@ -489,7 +489,7 @@ static constexpr Vec<T, N> operator/(const Vec<T, N>& lhs, const Vec<T, N>& rhs)
      for (auto i = 0; i < N; i += hwy::HWY_NAMESPACE::Lanes(data)) {
          const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
          const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-         hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+         hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
     }
 #else
      for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
@@ -507,7 +507,7 @@ static constexpr Vec<T> operator/(const Vec<T>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
@@ -526,7 +526,7 @@ static constexpr Vec<T, N> operator/(const Vec<T, N>& lhs, const Vec<T>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
@@ -545,7 +545,7 @@ static constexpr Vec<T, N> operator/(const Vec<T>& lhs, const Vec<T, N>& rhs)
     for (auto i = 0; i < lhs.size(); i += hwy::HWY_NAMESPACE::Lanes(data)) {
         const auto x = hwy::HWY_NAMESPACE::Load(data, lhs.data() + i);
         const auto y = hwy::HWY_NAMESPACE::Load(data, rhs.data() + i);
-        hwy::HWY_NAMESPACE::Store<T>(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
+        hwy::HWY_NAMESPACE::Store(hwy::HWY_NAMESPACE::Div(x, y), data, result.data() + i);
     }
 #else
     for (auto i = 0; i < lhs.size(); ++i) result[i] = lhs[i] / rhs[i];
